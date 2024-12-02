@@ -9,7 +9,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
     try {
         // Faz uma requisição POST para o endpoint de login com as credenciais fornecidas
-        const response = await fetch('https://primefit-api.onrender.com/api/auth/login', {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }, // Define o tipo de conteúdo como JSON
             body: JSON.stringify({ username, password }) // Converte as credenciais para JSON e inclui no corpo da requisição
@@ -20,18 +20,30 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         
         // Verifica se a resposta foi bem-sucedida
         if (response.ok) {
-            alert('Login bem-sucedido!'); // Informa ao usuário que o login foi bem-sucedido
+            Swal.fire({
+                icon: 'success',
+                title: 'Login bem-sucedido!',
+                text: 'Você foi redirecionado para a página principal.',
+            });
             // Armazena o token JWT e o nome de usuário no localStorage
             localStorage.setItem('token', data.token);
             localStorage.setItem('username', username);
             // Redireciona o usuário para a página principal
-            window.location.href = 'index.html';
+            window.location.href = 'account.html';
         } else {
             // Exibe uma mensagem de erro, se houver
-            alert(data.message || 'Erro no login');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro no login',
+                text: data.message || 'Verifique suas credenciais.',
+            });
         }
     } catch (error) {
         // Captura e exibe um erro se a requisição falhar
-        alert('Erro ao conectar com o servidor.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao conectar com o servidor.',
+        });
     }
 });
