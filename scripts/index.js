@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro',
-                text: 'Token JWT não encontrado.',
+                text: 'Faça login.',
             });
             return;
         }
